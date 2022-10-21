@@ -62,16 +62,30 @@ public class Fruit implements Comparable<Fruit>{
 
 	@Override
 	public int compareTo(Fruit fr) {
-		//Comparison 1: Pears > Grapes, Apples > Bananas
-		//Comparison 2: When comparing Grapes and Apples, the Fruit with the higher weight is greater. Fruits are deemed equally weighted if their weights are within 0.05	
+		//Comparison 1: Pears > Grapes, Apples > Bananas.
+		//Comparison 2: When comparing Grapes and Apples, the Fruit with the higher weight is greater. Fruits are deemed equally weighted if their weights are within 0.05.
 		//Comparison 3: The ripeness of a Fruit is used to break ties between two similarly weighted Fruits.
-
+	
 		
-		if(getWeight() - fr.getWeight() < 0.05 && getWeight() - fr.getWeight() > -0.05) {
+		//If the current object is pear and the specified object is not pear, we know the current object is greater:
+		if (getType().compareTo(TYPE.PEAR) == 0 && fr.getType().compareTo(TYPE.PEAR) != 0) {return 1;}
+		//If the specifed object is pear and the current object is not pear, we know the current object is lesser:
+		else if (fr.getType().compareTo(TYPE.PEAR) == 0 && getType().compareTo(TYPE.PEAR) != 0) {return -1;}
+		
+		//Likewise, if the current object is banana and the specified object is not banana, we know the current object is lesser:
+		else if (getType().compareTo(TYPE.BANANA) == 0 && fr.getType().compareTo(TYPE.BANANA) != 0) {return -1;}	
+		//And if the specified object is banana and the current object is not banana, we know the current object is greater:
+		else if (fr.getType().compareTo(TYPE.BANANA) == 0 && getType().compareTo(TYPE.BANANA) != 0) {return 1;}	
+		
+		//All other combinations of fruit types are deemed equal and will be sorted by Weight/Ripeness.
+		
+		//First find weights that are deemed to be equal and sort them using their ripeness:
+		else if(getWeight() - fr.getWeight() < 0.05 && getWeight() - fr.getWeight() > -0.05) {
 			if(getRipeness() > fr.getRipeness()) {return 1;}
-			else if(getRipeness() < fr.getRipeness()) {return -1;}
+			else{return -1;}
 		}
 		
+		//Finally sorting the remaining unequal weight but equal type objects by their weights:
 		else if(getWeight() > fr.getWeight()) {return 1;}
 		else if(getWeight() < fr.getWeight()) {return -1;}
 
