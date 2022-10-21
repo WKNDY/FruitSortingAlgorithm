@@ -14,10 +14,18 @@ public class Fruit {
 	public float Ripeness;
 
 	//Constructor
-	public Fruit(TYPE type, float weight, float ripeness) {
+	public Fruit(TYPE type, float weight, float ripeness) throws InvalidFruitWeightException, InvalidFruitRipenessException {
 		this.type = type;
 		this.Weight = weight;
 		this.Ripeness = ripeness;
+		
+		if (this.Weight <= 0) {
+			throw new InvalidFruitWeightException("Fruit Weight Invalid");
+		}
+		
+		if (this.Ripeness <= 0 || this.Ripeness > 1) {
+			throw new InvalidFruitRipenessException("Fruit Ripeness Value Invalid");
+		}
 	}
 	
 	
