@@ -1,6 +1,10 @@
+//Github Token: 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
+
 package ds.fruit;
 
-public class Fruit {
+import java.util.Objects;
+
+public class Fruit implements Comparable<Fruit>{
 
 	//type definition of the fruit type:
 	public enum TYPE{PEAR, GRAPE, APPLE, BANANA;}
@@ -27,7 +31,35 @@ public class Fruit {
 			throw new InvalidFruitRipenessException("Fruit Ripeness Value Invalid");
 		}
 	}
-	
+
+	@Override
+	public int hashCode() {
+		return Objects.hash(Ripeness, Weight, type);
+	}
+
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj)
+			return true;
+		if (obj == null)
+			return false;
+		if (getClass() != obj.getClass())
+			return false;
+		Fruit other = (Fruit) obj;
+		return Float.floatToIntBits(Ripeness) == Float.floatToIntBits(other.Ripeness)
+				&& Float.floatToIntBits(Weight) == Float.floatToIntBits(other.Weight) && type == other.type;
+	}
+
+	@Override
+	public String toString() {
+		return "Fruit [type=" + type + ", Weight=" + Weight + ", Ripeness=" + Ripeness + "]";
+	}
+
+	@Override
+	public int compareTo(Fruit fr) {
+		// TODO Auto-generated method stub
+		return 0;
+	}
 	
 	
 	
