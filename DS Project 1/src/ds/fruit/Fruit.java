@@ -1,5 +1,4 @@
 //Github Token: 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
-
 package ds.fruit;
 
 import java.util.Objects;
@@ -23,6 +22,7 @@ public class Fruit implements Comparable<Fruit>{
 		this.Weight = weight;
 		this.Ripeness = ripeness;
 		
+		
 		if (this.Weight <= 0) {
 			throw new InvalidFruitWeightException("Fruit Weight Invalid");
 		}
@@ -31,6 +31,11 @@ public class Fruit implements Comparable<Fruit>{
 			throw new InvalidFruitRipenessException("Fruit Ripeness Value Invalid");
 		}
 	}
+
+	//Getters
+	public TYPE getType() {return type;}
+	public float getWeight() {return Weight;}
+	public float getRipeness() {return Ripeness;}
 
 	@Override
 	public int hashCode() {
@@ -52,13 +57,26 @@ public class Fruit implements Comparable<Fruit>{
 
 	@Override
 	public String toString() {
-		return "Fruit [type=" + type + ", Weight=" + Weight + ", Ripeness=" + Ripeness + "]";
+		return "Fruit [Type=" + type + ", Weight=" + Weight + ", Ripeness=" + Ripeness + "]";
 	}
 
 	@Override
 	public int compareTo(Fruit fr) {
-		// TODO Auto-generated method stub
+		//Comparison 1: Pears > Grapes, Apples > Bananas
+		//Comparison 2: When comparing Grapes and Apples, the Fruit with the higher weight is greater. Fruits are deemed equally weighted if their weights are within 0.05	
+		//Comparison 3: The ripeness of a Fruit is used to break ties between two similarly weighted Fruits.
+
+		
+		if(getWeight() - fr.getWeight() < 0.05 && getWeight() - fr.getWeight() > -0.05) {
+			if(getRipeness() > fr.getRipeness()) {return 1;}
+			else if(getRipeness() < fr.getRipeness()) {return -1;}
+		}
+		
+		else if(getWeight() > fr.getWeight()) {return 1;}
+		else if(getWeight() < fr.getWeight()) {return -1;}
+
 		return 0;
+	
 	}
 	
 	
